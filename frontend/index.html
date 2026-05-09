@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCart</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo"><i>Smart</i>Cart</div>
+
+        <div class="search-filter-container">
+            <div class="search-box">
+                <input type="text" id="searchBar" placeholder="Search for products, brands and more" autocomplete="off">
+                <span class="search-icon">🔍</span>
+            </div>
+            <select id="categoryFilter">
+                <option value="All">All Categories</option>
+                <option value="Mobiles">Mobiles</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Grocery">Grocery</option>
+            </select>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">🏠 Home</a>
+            <a href="#" onclick="showProducts()">📦 Products</a>
+            <a href="profile.html" class="profile-btn">👤 Profile</a>
+            <a href="cart.html">🛒 Cart</a>
+            <a href="login.html" id="loginLink" class="login-btn">🔐 Login</a>
+            <a href="signup.html" id="signupLink">✍️ Signup</a>
+            <a href="#" onclick="logout()" id="logoutLink">🚪 Logout</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to SmartCart</h1>
+            <p>Best Products at Best Prices</p>
+            <div class="loader"></div>
+            <button onclick="showProducts()" class="view-btn glowing-btn">
+                Shop Now
+            </button>
+        </div>
+    </section>
+
+    <!-- Featured Categories Section -->
+    <section class="featured-categories-section">
+        <h2>Top Categories</h2>
+        <div class="categories-container">
+            <div class="category-card" onclick="filterByCategory('Mobiles')">
+                <span class="category-icon">📱</span>
+                <p>Mobiles</p>
+            </div>
+            <div class="category-card" onclick="filterByCategory('Electronics')">
+                <span class="category-icon">⚡</span>
+                <p>Electronics</p>
+            </div>
+            <div class="category-card" onclick="filterByCategory('Fashion')">
+                <span class="category-icon">👔</span>
+                <p>Fashion</p>
+            </div>
+            <div class="category-card" onclick="filterByCategory('Grocery')">
+                <span class="category-icon">🛒</span>
+                <p>Grocery</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Products Section -->
+    <section class="trending-section">
+        <h2>Trending Now</h2>
+        <div class="trending-carousel" id="trendingCarousel">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="productsSection" style="display:none;">
+        <h1 class="products-title">🛍️ Our Products</h1>
+        
+        <div class="products-controls">
+            <div class="search-box-mobile">
+                <input type="text" id="searchBarMobile" placeholder="Search products..." autocomplete="off">
+                <span class="search-icon">🔍</span>
+            </div>
+            <select id="categoryFilterMobile">
+                <option value="All">All Categories</option>
+                <option value="Mobiles">Mobiles</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Grocery">Grocery</option>
+            </select>
+        </div>
+
+        <div class="filter-sort-container">
+            <div class="price-filter">
+                <label>Price Range: ₹<span id="minPriceLabel">0</span> - ₹<span id="maxPriceLabel">500000</span></label>
+                <input type="range" id="priceSlider" min="0" max="500000" step="1000" value="500000">
+            </div>
+            <select id="sortDropdown">
+                <option value="default">Sort By</option>
+                <option value="low-to-high">💰 Price: Low to High</option>
+                <option value="high-to-low">💸 Price: High to Low</option>
+                <option value="newest">✨ Newest</option>
+                <option value="popular">⭐ Most Popular</option>
+            </select>
+        </div>
+
+        <div id="products" class="products-grid"></div>
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

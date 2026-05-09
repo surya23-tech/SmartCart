@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - SmartCart</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+
+            height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            background:
+            linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+            url("https://images.unsplash.com/photo-1523381210434-271e8be1f52b");
+
+            background-size:cover;
+
+            background-position:center;
+
+        }
+
+        .login-box{
+
+            width:350px;
+
+            background:white;
+
+            padding:40px;
+
+            border-radius:15px;
+
+            text-align:center;
+
+            box-shadow:0 0 20px rgba(0,0,0,0.3);
+
+        }
+
+        .login-box h1{
+
+            margin-bottom:30px;
+
+            font-size:45px;
+
+        }
+
+        .login-box input{
+
+            width:100%;
+
+            padding:15px;
+
+            margin-bottom:20px;
+
+            border:1px solid #ccc;
+
+            border-radius:10px;
+
+            font-size:16px;
+
+        }
+
+        .login-box button{
+
+            width:100%;
+
+            padding:15px;
+
+            border:none;
+
+            border-radius:10px;
+
+            background:#4CAF50;
+
+            color:white;
+
+            font-size:20px;
+
+            cursor:pointer;
+
+        }
+
+        .login-box button:hover{
+
+            background:#2e8b57;
+
+        }
+
+        .login-box p{
+
+            margin-top:20px;
+
+            font-size:17px;
+
+        }
+
+        .login-box a{
+
+            text-decoration:none;
+
+            color:#4CAF50;
+
+            font-weight:bold;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <div style="text-align: center; margin-bottom: 15px;">
+            <h2 style="color: #2874f0; margin: 0 0 5px 0; font-size: 26px;">🛍️ Welcome to SmartCart</h2>
+            <p style="color: #666; font-size: 14px; margin: 0;">Best Products at Best Prices</p>
+        </div>
+
+        <h1 style="margin-bottom: 20px;">🔐 Login</h1>
+
+        <input type="email" id="email" placeholder="Enter Email">
+
+        <input type="password" id="password" placeholder="Enter Password">
+
+        <button onclick="login()">
+
+            Login
+
+        </button>
+
+        <p>
+
+            Don't have an account?
+
+            <a href="signup.html">
+
+                Signup
+
+            </a>
+
+        </p>
+
+    </div>
+
+    <script>
+
+        async function login(){
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            if (!email || !password) {
+                alert("Please enter email and password.");
+                return;
+            }
+
+            try{
+                const response = await fetch("http://localhost:5000/api/users/login",{
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if(response.ok){
+                    localStorage.setItem("isLoggedIn", "true");
+                    localStorage.setItem("userEmail", data.email || email);
+                    localStorage.setItem("userName", data.name || "");
+                    window.location.href = "index.html";
+                } else {
+                    alert(data.message || "Invalid Email or Password");
+                }
+            } catch(error){
+                console.error(error);
+                alert("Server Error. Make sure the backend is running.");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

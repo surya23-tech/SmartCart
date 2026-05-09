@@ -1,0 +1,189 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "SmartCart API",
+  "collectionId": "smartcart-api-collection-v1",
+  "dateExported": "2026-05-09",
+  "version": "1.1",
+  "folders": [
+    { "id": "auth-folder", "name": "Auth", "containerId": "" },
+    { "id": "products-folder", "name": "Products", "containerId": "" },
+    { "id": "cart-folder", "name": "Cart", "containerId": "" },
+    { "id": "orders-folder", "name": "Orders", "containerId": "" }
+  ],
+  "requests": [
+    {
+      "id": "req-signup",
+      "name": "1. Signup User",
+      "url": "http://localhost:5000/api/users/register",
+      "method": "POST",
+      "sortNum": 1,
+      "containerId": "auth-folder",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@gmail.com\",\n  \"password\": \"test1234\"\n}"
+      },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "201", "action": "equal" }
+      ]
+    },
+    {
+      "id": "req-login",
+      "name": "2. Login User",
+      "url": "http://localhost:5000/api/users/login",
+      "method": "POST",
+      "sortNum": 2,
+      "containerId": "auth-folder",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"testuser@gmail.com\",\n  \"password\": \"test1234\"\n}"
+      },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "200", "action": "equal" },
+        { "type": "json", "value": "message", "action": "contains" }
+      ]
+    },
+    {
+      "id": "req-get-profile",
+      "name": "3. Get User Profile",
+      "url": "http://localhost:5000/api/users/profile/testuser@gmail.com",
+      "method": "GET",
+      "sortNum": 3,
+      "containerId": "auth-folder",
+      "headers": [],
+      "body": { "type": "none" },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "200", "action": "equal" }
+      ]
+    },
+    {
+      "id": "req-update-profile",
+      "name": "4. Update User Profile",
+      "url": "http://localhost:5000/api/users/profile/testuser@gmail.com",
+      "method": "PUT",
+      "sortNum": 4,
+      "containerId": "auth-folder",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Test User Updated\",\n  \"mobile\": \"9876543210\",\n  \"address\": \"123 MG Road\",\n  \"city\": \"Bangalore\",\n  \"state\": \"Karnataka\",\n  \"pincode\": \"560001\"\n}"
+      },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "200", "action": "equal" }
+      ]
+    },
+    {
+      "id": "req-get-products",
+      "name": "5. Get All Products",
+      "url": "http://localhost:5000/api/products",
+      "method": "GET",
+      "sortNum": 5,
+      "containerId": "products-folder",
+      "headers": [],
+      "body": { "type": "none" },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "200", "action": "equal" },
+        { "type": "json", "value": "$", "action": "isArray" }
+      ]
+    },
+    {
+      "id": "req-add-product",
+      "name": "6. Add New Product",
+      "url": "http://localhost:5000/api/products",
+      "method": "POST",
+      "sortNum": 6,
+      "containerId": "products-folder",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Samsung Galaxy S24\",\n  \"category\": \"Mobiles\",\n  \"price\": 74999,\n  \"originalPrice\": 79999,\n  \"discount\": 5000,\n  \"stock\": 25,\n  \"rating\": 4.7,\n  \"reviews\": 312,\n  \"description\": \"Samsung Galaxy S24 with 6.2-inch Dynamic AMOLED 2X display, Snapdragon 8 Gen 3.\",\n  \"image\": \"https://m.media-amazon.com/images/I/71Sa3dqTqzL._SX679_.jpg\"\n}"
+      },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "201", "action": "equal" }
+      ]
+    },
+    {
+      "id": "req-get-cart",
+      "name": "7. Get Cart",
+      "url": "http://localhost:5000/api/users/cart/testuser@gmail.com",
+      "method": "GET",
+      "sortNum": 7,
+      "containerId": "cart-folder",
+      "headers": [],
+      "body": { "type": "none" },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "200", "action": "equal" }
+      ]
+    },
+    {
+      "id": "req-update-cart",
+      "name": "8. Update Cart",
+      "url": "http://localhost:5000/api/users/cart/testuser@gmail.com",
+      "method": "PUT",
+      "sortNum": 8,
+      "containerId": "cart-folder",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"cart\": [\n    {\n      \"name\": \"Samsung Galaxy S24\",\n      \"price\": 74999,\n      \"quantity\": 1,\n      \"image\": \"https://m.media-amazon.com/images/I/71Sa3dqTqzL._SX679_.jpg\"\n    }\n  ]\n}"
+      },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "200", "action": "equal" }
+      ]
+    },
+    {
+      "id": "req-clear-cart",
+      "name": "9. Clear Cart",
+      "url": "http://localhost:5000/api/users/cart/testuser@gmail.com",
+      "method": "DELETE",
+      "sortNum": 9,
+      "containerId": "cart-folder",
+      "headers": [],
+      "body": { "type": "none" },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "200", "action": "equal" }
+      ]
+    },
+    {
+      "id": "req-place-order",
+      "name": "10. Place Order",
+      "url": "http://localhost:5000/api/orders",
+      "method": "POST",
+      "sortNum": 10,
+      "containerId": "orders-folder",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"items\": [\n    {\n      \"name\": \"Samsung Galaxy S24\",\n      \"price\": 74999,\n      \"quantity\": 1,\n      \"image\": \"https://m.media-amazon.com/images/I/71Sa3dqTqzL._SX679_.jpg\"\n    }\n  ],\n  \"total\": 74999,\n  \"user\": {\n    \"name\": \"Test User\",\n    \"email\": \"testuser@gmail.com\",\n    \"mobile\": \"9876543210\",\n    \"address\": \"123 MG Road\",\n    \"city\": \"Bangalore\",\n    \"state\": \"Karnataka\",\n    \"pincode\": \"560001\"\n  }\n}"
+      },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "200", "action": "equal" }
+      ]
+    },
+    {
+      "id": "req-order-history",
+      "name": "11. Get Order History",
+      "url": "http://localhost:5000/api/orders/testuser@gmail.com",
+      "method": "GET",
+      "sortNum": 11,
+      "containerId": "orders-folder",
+      "headers": [],
+      "body": { "type": "none" },
+      "params": [],
+      "tests": [
+        { "type": "status", "value": "200", "action": "equal" }
+      ]
+    }
+  ]
+}

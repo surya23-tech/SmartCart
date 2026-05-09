@@ -1,3 +1,11 @@
+// ============================================
+// API Configuration
+// ============================================
+// Update this URL to your Render backend URL
+const BASE_URL = "https://your-render-url.onrender.com";
+// Example: const BASE_URL = "https://smartcart-backend.onrender.com";
+
+// ============================================
 // Profile page logic
 if (window.location.pathname.endsWith('profile.html')) {
     document.addEventListener('DOMContentLoaded', async () => {
@@ -11,7 +19,7 @@ if (window.location.pathname.endsWith('profile.html')) {
         const savedProfile = JSON.parse(localStorage.getItem('userProfile_' + email)) || {};
         // Load profile
         try {
-            const res = await fetch(`http://localhost:5000/api/users/profile/${email}`);
+            const res = await fetch(`${BASE_URL}/api/users/profile/${email}`);
             const data = await res.json();
             if (data && data.name) {
                 Object.assign(savedProfile, data);
@@ -47,7 +55,7 @@ if (window.location.pathname.endsWith('profile.html')) {
             localStorage.setItem('userProfile_' + email, JSON.stringify(payload));
             
             try {
-                const res = await fetch(`http://localhost:5000/api/users/profile/${email}`, {
+                const res = await fetch(`${BASE_URL}/api/users/profile/${email}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -70,7 +78,7 @@ async function autofillAddressFields() {
     const email = localStorage.getItem('userEmail');
     if (!email) return;
     try {
-        const res = await fetch(`http://localhost:5000/api/users/profile/${email}`);
+        const res = await fetch(`${BASE_URL}/api/users/profile/${email}`);
         const data = await res.json();
         if (data) {
             // Example: document.getElementById('checkoutAddress').value = data.address;
@@ -98,7 +106,7 @@ if (isLoggedIn) {
 // Fetch all products once
 async function fetchProducts() {
     try {
-        const response = await fetch("http://localhost:5000/api/products");
+        const response = await fetch(`${BASE_URL}/api/products`);
         allProducts = await response.json();
         displayProducts(allProducts.slice(0, 4));
         displayTrendingProducts(allProducts);
@@ -165,7 +173,7 @@ async function showProducts() {
     try {
         document.getElementById("productsSection").style.display = "block";
         if (allProducts.length === 0) {
-            const response = await fetch("http://localhost:5000/api/products");
+            const response = await fetch(`${BASE_URL}/api/products`);
             allProducts = await response.json();
         }
         displayProducts(allProducts);
@@ -255,7 +263,7 @@ async function syncCartToMongo(cart) {
     const email = localStorage.getItem("userEmail");
     if (!email) return;
     try {
-        await fetch(`http://localhost:5000/api/users/cart/${email}`, {
+        await fetch(`${BASE_URL}/api/users/cart/${email}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ cart })

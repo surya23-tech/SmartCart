@@ -129,6 +129,10 @@
 
     <script src="script.js"></script>
     <script>
+        // API Configuration - Update this to your Render backend URL
+        const BASE_URL = "https://your-render-url.onrender.com";
+        // Example: const BASE_URL = "https://smartcart-backend.onrender.com";
+
         const cartItemsContainer = document.getElementById("cartItems");
         const cartSummary = document.getElementById("cartSummary");
         const totalPriceEl = document.getElementById("totalPrice");
@@ -178,7 +182,7 @@
             const email = localStorage.getItem("userEmail");
             if (!email) return;
             try {
-                await fetch(`http://localhost:5000/api/users/cart/${email}`, {
+                await fetch(`${BASE_URL}/api/users/cart/${email}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ cart })
@@ -252,7 +256,7 @@
                     checkoutBtn.disabled = true;
                 }
 
-                const response = await fetch("http://localhost:5000/api/orders", {
+                const response = await fetch(`${BASE_URL}/api/orders`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)

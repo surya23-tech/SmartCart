@@ -1,9 +1,8 @@
 // ============================================
 // API Configuration
 // ============================================
-// Update this URL to your Render backend URL
-const BASE_URL = "https://your-render-url.onrender.com";
-// Example: const BASE_URL = "https://smartcart-backend.onrender.com";
+// Render Backend URL
+const BASE_URL = "https://smartcart-uura.onrender.com";
 
 // ============================================
 // Profile page logic
